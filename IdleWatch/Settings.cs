@@ -1,10 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
-using LibreHardwareMonitor.Hardware;
 using Microsoft.Win32;
 using SharpConfig;
 using Vortice.XInput;
-using Computer = LibreHardwareMonitor.Hardware.Computer;
 using MethodInvoker = System.Windows.Forms.MethodInvoker;
 
 namespace IdleWatch;
@@ -23,7 +21,7 @@ internal partial class Settings : Form
     internal static Section Log_section = config_parser["Log"];
     internal static Section Hang_section = config_parser["Hang"];
 
-    internal static Computer computer;
+    internal static CpuUsageMonitor cpuUsageMonitor;
 
     private readonly TransparentOverlay overlayform = new();
 
@@ -33,7 +31,6 @@ internal partial class Settings : Form
     internal bool allowshowdisplay;
 
     private uint? connectedController;
-    private State Controller_state;
     internal int cpu_usage, allowed_low_usage, under_cpu_usage_percent;
     private int elozo_pos_x = Cursor.Position.X;
     private int elozo_pos_y = Cursor.Position.Y;
@@ -43,7 +40,6 @@ internal partial class Settings : Form
     internal int masodpercek, masodpercek_cpu, masodpercek_network;
     private Nevjegy nevjegy;
     internal DateTime next_shutdown;
-    private State previous_controller_State;
     private State previousControllerState;
     internal string selected_adapter = "";
     internal bool teszt, Hatástalan, Automatikus;
@@ -54,7 +50,6 @@ internal partial class Settings : Form
         InitializeComponent();
         Directory.SetCurrentDirectory(path);
         Ertesito_ikon.Icon = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
-        //DialogDetector.SetHook();
 
         if (File.Exists($"{path}\\{setttings_file_name}"))
         {
@@ -82,21 +77,10 @@ internal partial class Settings : Form
                     break;
                 }
 
-            if (Leállítás_section["CPU_használat_alatt"].BoolValue)
-            {
-                computer = new Computer
-                {
-                    IsCpuEnabled = true
-                };
-                computer.Open();
-            }
+            if (Leállítás_section["CPU_használat_alatt"].BoolValue) cpuUsageMonitor = new CpuUsageMonitor();
         }
 
-        if (Hatástalan)
-        {
-            computer.Close();
-            Application.Exit();
-        }
+        if (Hatástalan) Application.Exit();
 
         if (Environment.GetCommandLineArgs().Length > 0)
             if (Environment.GetCommandLineArgs().Any(x => x == "auto"))
@@ -243,19 +227,11 @@ internal partial class Settings : Form
 
         if (cpu_usage_checkBox.Checked)
         {
-            if (computer == null)
-            {
-                computer = new Computer
-                {
-                    IsCpuEnabled = true
-                };
-                computer.Open();
-            }
+            if (cpuUsageMonitor == null) cpuUsageMonitor = new CpuUsageMonitor();
         }
         else
         {
-            computer?.Close();
-            computer = null;
+            cpuUsageMonitor = null;
         }
 
         SetStartup();
@@ -275,7 +251,6 @@ internal partial class Settings : Form
 
     private void button1_Click(object sender, EventArgs e)
     {
-        computer?.Close();
         Application.Exit();
     }
 
@@ -425,7 +400,7 @@ internal partial class Settings : Form
         if (ActionatLowCPUUsage)
             Task.Run(() =>
             {
-                cpu_usage = Convert.ToInt32(GetCpuUsage());
+                cpu_usage = Convert.ToInt32(CpuUsageMonitor.GetCpuUsage());
                 change_progresbar(cpu_usage);
                 change_current_cpu_progresbar(cpu_usage);
 
@@ -511,32 +486,6 @@ internal partial class Settings : Form
         else
             rk.DeleteValue(Assembly.GetExecutingAssembly().GetName().Name, false);
         rk.Dispose();
-    }
-
-    public static float GetCpuUsage()
-    {
-        var cpuUsage = 0f;
-
-        // Iterate through hardware components
-        foreach (var hardware in computer.Hardware)
-            // Find the CPU hardware
-            if (hardware.HardwareType == HardwareType.Cpu)
-            {
-                hardware.Update(); // Update hardware data
-
-                // Iterate through all the sensors of the CPU
-                foreach (var sensor in hardware.Sensors)
-                    // Look for CPU load sensors (percentage)
-                    if (sensor.SensorType == SensorType.Load && sensor.Name.Contains("Total"))
-                    {
-                        cpuUsage = sensor.Value.GetValueOrDefault();
-                        break;
-                    }
-            }
-
-        // Close the computer object
-
-        return cpuUsage;
     }
 
     private void ShowOverlay(OverlayMode mode)
@@ -716,7 +665,6 @@ internal partial class Settings : Form
 
     private void ApplicationExit_Click(object sender, EventArgs e)
     {
-        computer?.Close();
         Application.Exit();
     }
 
