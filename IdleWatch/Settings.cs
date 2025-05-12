@@ -137,6 +137,7 @@ internal partial class Settings : Form
 
     private void SaveButton_Click(object sender, EventArgs e)
     {
+        overlayform.HideOverlay();
         try
         {
             if (Tools.Is_higher_than_one(Warningtime_textbox.Text.Trim()))

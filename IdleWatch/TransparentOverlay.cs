@@ -12,8 +12,6 @@ namespace IdleWatch;
 
 public class TransparentOverlay : NativeWindow
 {
-    private const uint LWA_COLORKEY = 0x00000001;
-
     //private const uint LWA_ALPHA = 0x00000002;
     private readonly int screenHeight;
     private readonly int screenWidth;
@@ -50,7 +48,7 @@ public class TransparentOverlay : NativeWindow
         };
 
         CreateHandle(cp);
-        SetLayeredWindowAttributes(Handle, 0, 0, (LayeredWindowAttributes)LWA_COLORKEY); // Ensure transparency
+        SetLayeredWindowAttributes(Handle, 0, 0, LayeredWindowAttributes.LWA_COLORKEY);
     }
 
     private void InitializeDirect2D()

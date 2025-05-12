@@ -7,7 +7,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ApplicationIcon>shutdown.ico</ApplicationIcon>
 		<Copyright>Zoli456 Software</Copyright>
-		<Description>Egy program ami nem hagyja, hogy a PC-d feleslgesen bekapcsolva maradjon.</Description>
+		<Description>Egy program ami nem hagyja, hogy a PC-d feleslegesen bekapcsolva maradjon.</Description>
 		<Version>1.1.0.0</Version>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
