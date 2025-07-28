@@ -88,7 +88,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            label1.Location = new Point(78, 189);
+            label1.Location = new Point(151, 189);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(94, 15);
@@ -99,7 +99,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            label2.Location = new Point(86, 40);
+            label2.Location = new Point(130, 47);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(90, 15);
@@ -144,7 +144,7 @@
             // 
             notificationicon_checkBox.AutoSize = true;
             notificationicon_checkBox.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            notificationicon_checkBox.Location = new Point(323, 509);
+            notificationicon_checkBox.Location = new Point(370, 509);
             notificationicon_checkBox.Margin = new Padding(4, 3, 4, 3);
             notificationicon_checkBox.Name = "notificationicon_checkBox";
             notificationicon_checkBox.Size = new Size(92, 19);
@@ -165,7 +165,7 @@
             // 
             // Warningtime_textbox
             // 
-            Warningtime_textbox.Location = new Point(195, 183);
+            Warningtime_textbox.Location = new Point(253, 187);
             Warningtime_textbox.Margin = new Padding(4, 3, 4, 3);
             Warningtime_textbox.MaxLength = 8;
             Warningtime_textbox.Name = "Warningtime_textbox";
@@ -175,7 +175,7 @@
             // 
             // shutdowntime_textbox
             // 
-            shutdowntime_textbox.Location = new Point(198, 39);
+            shutdowntime_textbox.Location = new Point(237, 40);
             shutdowntime_textbox.Margin = new Padding(4, 3, 4, 3);
             shutdowntime_textbox.MaxLength = 8;
             shutdowntime_textbox.Name = "shutdowntime_textbox";
@@ -185,7 +185,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(337, 592);
+            button1.Location = new Point(381, 592);
             button1.Margin = new Padding(4, 3, 4, 3);
             button1.Name = "button1";
             button1.Size = new Size(81, 25);
@@ -198,7 +198,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            label3.Location = new Point(380, 189);
+            label3.Location = new Point(435, 189);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(27, 15);
@@ -209,7 +209,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            label4.Location = new Point(383, 44);
+            label4.Location = new Point(418, 47);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(27, 15);
@@ -246,7 +246,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            label5.Location = new Point(383, 98);
+            label5.Location = new Point(418, 100);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(35, 15);
@@ -255,7 +255,7 @@
             // 
             // AtTime_textBox
             // 
-            AtTime_textBox.Location = new Point(198, 92);
+            AtTime_textBox.Location = new Point(232, 96);
             AtTime_textBox.Margin = new Padding(4, 3, 4, 3);
             AtTime_textBox.MaxLength = 8;
             AtTime_textBox.Name = "AtTime_textBox";
@@ -267,7 +267,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            label6.Location = new Point(110, 98);
+            label6.Location = new Point(151, 104);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(69, 15);
@@ -278,7 +278,7 @@
             // 
             showwarning_checkBox.AutoSize = true;
             showwarning_checkBox.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            showwarning_checkBox.Location = new Point(10, 152);
+            showwarning_checkBox.Location = new Point(15, 152);
             showwarning_checkBox.Margin = new Padding(4, 3, 4, 3);
             showwarning_checkBox.Name = "showwarning_checkBox";
             showwarning_checkBox.Size = new Size(217, 19);
@@ -289,7 +289,7 @@
             // 
             // cpu_progressBar
             // 
-            cpu_progressBar.Location = new Point(14, 293);
+            cpu_progressBar.Location = new Point(50, 293);
             cpu_progressBar.Margin = new Padding(4, 3, 4, 3);
             cpu_progressBar.Name = "cpu_progressBar";
             cpu_progressBar.Size = new Size(336, 14);
@@ -297,7 +297,7 @@
             // 
             // cpu_trackBar
             // 
-            cpu_trackBar.Location = new Point(57, 314);
+            cpu_trackBar.Location = new Point(93, 314);
             cpu_trackBar.Margin = new Padding(4, 3, 4, 3);
             cpu_trackBar.Maximum = 100;
             cpu_trackBar.Minimum = 1;
@@ -324,7 +324,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            label7.Location = new Point(385, 360);
+            label7.Location = new Point(426, 362);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(27, 15);
@@ -333,7 +333,7 @@
             // 
             // cpu_textBox
             // 
-            cpu_textBox.Location = new Point(200, 354);
+            cpu_textBox.Location = new Point(240, 360);
             cpu_textBox.Margin = new Padding(4, 3, 4, 3);
             cpu_textBox.MaxLength = 8;
             cpu_textBox.Name = "cpu_textBox";
@@ -345,7 +345,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            label8.Location = new Point(124, 355);
+            label8.Location = new Point(173, 368);
             label8.Margin = new Padding(4, 0, 4, 0);
             label8.Name = "label8";
             label8.Size = new Size(59, 15);
@@ -356,7 +356,7 @@
             // 
             cpupercent_label.AutoSize = true;
             cpupercent_label.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            cpupercent_label.Location = new Point(5, 325);
+            cpupercent_label.Location = new Point(35, 326);
             cpupercent_label.Margin = new Padding(4, 0, 4, 0);
             cpupercent_label.Name = "cpupercent_label";
             cpupercent_label.Size = new Size(50, 15);
@@ -367,7 +367,7 @@
             // 
             current_cpu_label.AutoSize = true;
             current_cpu_label.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            current_cpu_label.Location = new Point(358, 293);
+            current_cpu_label.Location = new Point(394, 293);
             current_cpu_label.Margin = new Padding(4, 0, 4, 0);
             current_cpu_label.Name = "current_cpu_label";
             current_cpu_label.Size = new Size(50, 15);
@@ -403,7 +403,7 @@
             testmode_label.AutoSize = true;
             testmode_label.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
             testmode_label.ForeColor = Color.FromArgb(0, 192, 0);
-            testmode_label.Location = new Point(152, 596);
+            testmode_label.Location = new Point(200, 598);
             testmode_label.Margin = new Padding(4, 0, 4, 0);
             testmode_label.Name = "testmode_label";
             testmode_label.Size = new Size(106, 15);
@@ -417,14 +417,14 @@
             interfaces_newComboBox.Location = new Point(202, 410);
             interfaces_newComboBox.Margin = new Padding(4, 3, 4, 3);
             interfaces_newComboBox.Name = "interfaces_newComboBox";
-            interfaces_newComboBox.Size = new Size(213, 24);
+            interfaces_newComboBox.Size = new Size(260, 24);
             interfaces_newComboBox.TabIndex = 27;
             // 
             // label9
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            label9.Location = new Point(386, 441);
+            label9.Location = new Point(426, 441);
             label9.Margin = new Padding(4, 0, 4, 0);
             label9.Name = "label9";
             label9.Size = new Size(36, 15);
@@ -437,7 +437,7 @@
             bandwith_textBox.Margin = new Padding(4, 3, 4, 3);
             bandwith_textBox.MaxLength = 8;
             bandwith_textBox.Name = "bandwith_textBox";
-            bandwith_textBox.Size = new Size(178, 23);
+            bandwith_textBox.Size = new Size(218, 23);
             bandwith_textBox.TabIndex = 33;
             bandwith_textBox.TextAlign = HorizontalAlignment.Center;
             // 
@@ -456,7 +456,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            label11.Location = new Point(386, 474);
+            label11.Location = new Point(426, 474);
             label11.Margin = new Padding(4, 0, 4, 0);
             label11.Name = "label11";
             label11.Size = new Size(27, 15);
@@ -469,7 +469,7 @@
             lownetwork_textBox.Margin = new Padding(4, 3, 4, 3);
             lownetwork_textBox.MaxLength = 8;
             lownetwork_textBox.Name = "lownetwork_textBox";
-            lownetwork_textBox.Size = new Size(178, 23);
+            lownetwork_textBox.Size = new Size(218, 23);
             lownetwork_textBox.TabIndex = 36;
             lownetwork_textBox.TextAlign = HorizontalAlignment.Center;
             // 
@@ -486,7 +486,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(394, 10);
+            button2.Location = new Point(439, 10);
             button2.Name = "button2";
             button2.Size = new Size(24, 23);
             button2.TabIndex = 38;
@@ -549,7 +549,7 @@
             // 
             SoundcheckBox.AutoSize = true;
             SoundcheckBox.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            SoundcheckBox.Location = new Point(253, 152);
+            SoundcheckBox.Location = new Point(306, 152);
             SoundcheckBox.Margin = new Padding(4, 3, 4, 3);
             SoundcheckBox.Name = "SoundcheckBox";
             SoundcheckBox.Size = new Size(156, 19);
@@ -559,7 +559,7 @@
             // 
             // Volume_trackBar
             // 
-            Volume_trackBar.Location = new Point(82, 212);
+            Volume_trackBar.Location = new Point(130, 220);
             Volume_trackBar.Maximum = 100;
             Volume_trackBar.Minimum = 1;
             Volume_trackBar.Name = "Volume_trackBar";
@@ -570,7 +570,7 @@
             // 
             // Testbutton
             // 
-            Testbutton.Location = new Point(323, 218);
+            Testbutton.Location = new Point(383, 220);
             Testbutton.Name = "Testbutton";
             Testbutton.Size = new Size(75, 23);
             Testbutton.TabIndex = 41;
@@ -582,7 +582,7 @@
             // 
             Soundlabel.AutoSize = true;
             Soundlabel.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            Soundlabel.Location = new Point(1, 226);
+            Soundlabel.Location = new Point(57, 228);
             Soundlabel.Margin = new Padding(4, 0, 4, 0);
             Soundlabel.Name = "Soundlabel";
             Soundlabel.Size = new Size(66, 15);
@@ -593,7 +593,7 @@
             // 
             Volumelabel.AutoSize = true;
             Volumelabel.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
-            Volumelabel.Location = new Point(264, 223);
+            Volumelabel.Location = new Point(323, 223);
             Volumelabel.Margin = new Padding(4, 0, 4, 0);
             Volumelabel.Name = "Volumelabel";
             Volumelabel.Size = new Size(43, 15);
@@ -605,7 +605,7 @@
             AcceptButton = SaveButton;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(427, 625);
+            ClientSize = new Size(475, 625);
             Controls.Add(Volumelabel);
             Controls.Add(Soundlabel);
             Controls.Add(Testbutton);

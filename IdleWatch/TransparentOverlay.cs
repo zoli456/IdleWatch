@@ -2,11 +2,13 @@
 using System.Numerics;
 using Vortice.Direct2D1;
 using Vortice.DirectWrite;
+using Vortice.DXGI;
 using Vortice.Mathematics;
-using Vortice.WIC;
 using static Vanara.PInvoke.User32;
+using AlphaMode = Vortice.DCommon.AlphaMode;
 using BitmapInterpolationMode = Vortice.Direct2D1.BitmapInterpolationMode;
 using FontStyle = Vortice.DirectWrite.FontStyle;
+using PixelFormat = Vortice.WIC.PixelFormat;
 
 namespace IdleWatch;
 
@@ -16,7 +18,6 @@ public class TransparentOverlay : NativeWindow
     private readonly int screenHeight;
     private readonly int screenWidth;
     private IDWriteTextFormat boldTextFormat;
-    private IDWriteFactory directWriteFactory;
     internal bool isVisible;
     private string labelText1 = "Label 1";
     private string labelText2 = "Label 2";
@@ -53,47 +54,38 @@ public class TransparentOverlay : NativeWindow
 
     private void InitializeDirect2D()
     {
-        using var factory = D2D1.D2D1CreateFactory<ID2D1Factory>();
-
-        var renderTargetProps = new RenderTargetProperties();
-        /*{
-            PixelFormat = new PixelFormat
-                { Format = Format.B8G8R8A8_UNorm, AlphaMode = (AlphaMode)Vortice.DXGI.AlphaMode.Premultiplied }
-        };*/
+        var rtProps = new RenderTargetProperties
+        {
+            PixelFormat = new Vortice.DCommon.PixelFormat(Format.B8G8R8A8_UNorm, AlphaMode.Ignore)
+        };
         var hwndProps = new HwndRenderTargetProperties
         {
             Hwnd = Handle,
             PixelSize = new SizeI(screenWidth, screenHeight),
             PresentOptions = PresentOptions.None
         };
-
-        renderTarget = factory.CreateHwndRenderTarget(renderTargetProps, hwndProps);
+        renderTarget = GraphicsFactories.D2DFactory.CreateHwndRenderTarget(rtProps, hwndProps);
         renderTarget.AntialiasMode = AntialiasMode.PerPrimitive;
 
         textBrush = renderTarget.CreateSolidColorBrush(new Color4(1.0f, 0.0f, 0.0f));
-        directWriteFactory = DWrite.DWriteCreateFactory<IDWriteFactory>();
 
         boldTextFormat =
-            directWriteFactory.CreateTextFormat("Arial", FontWeight.Bold, FontStyle.Normal, FontStretch.Normal, 48);
+            GraphicsFactories.DWriteFactory.CreateTextFormat("Arial", FontWeight.Bold, FontStyle.Normal,
+                FontStretch.Normal, 48);
         regularTextFormat =
-            directWriteFactory.CreateTextFormat("Arial", FontWeight.Regular, FontStyle.Normal, FontStretch.Normal, 36);
+            GraphicsFactories.DWriteFactory.CreateTextFormat("Arial", FontWeight.Regular, FontStyle.Normal,
+                FontStretch.Normal, 36);
     }
 
     private void LoadOverlayImage()
     {
-        using var wicFactory = new IWICImagingFactory();
-
         using var stream = GetType().Assembly.GetManifestResourceStream("IdleWatch.Resources.warning.png");
         if (stream == null) throw new FileNotFoundException("Embedded resource not found.");
-
-        using var decoder = wicFactory.CreateDecoderFromStream(stream);
+        using var decoder = GraphicsFactories.WicFactory.CreateDecoderFromStream(stream);
         using var frame = decoder.GetFrame(0);
-        using var converter = wicFactory.CreateFormatConverter();
-
+        using var converter = GraphicsFactories.WicFactory.CreateFormatConverter();
         // Use the corrected pixel format
         converter.Initialize(frame, PixelFormat.Format32bppPBGRA);
-
-
         overlayImage = renderTarget.CreateBitmapFromWicBitmap(converter);
     }
 
@@ -128,7 +120,8 @@ public class TransparentOverlay : NativeWindow
 
     private Vector2 DrawTextContent(string text, IDWriteTextFormat format, int centerX, int centerY)
     {
-        using var textLayout = directWriteFactory.CreateTextLayout(text, format, screenWidth, screenHeight);
+        using var textLayout =
+            GraphicsFactories.DWriteFactory.CreateTextLayout(text, format, screenWidth, screenHeight);
         var textMetrics = textLayout.Metrics;
         var position = new Vector2(centerX - textMetrics.Width / 2, centerY);
 

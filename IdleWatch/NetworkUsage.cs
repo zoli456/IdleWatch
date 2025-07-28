@@ -6,42 +6,51 @@ public static class NetworkUsage
 {
     public static float GetNetworkDownloadSpeedKbps(string adapterName)
     {
-        var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-        NetworkInterface selectedInterface = null;
+        if (string.IsNullOrWhiteSpace(adapterName))
+            throw new ArgumentException("Adapter name must be non-empty.", nameof(adapterName));
 
-        // Find the correct network interface by its name
-        foreach (var networkInterface in networkInterfaces)
-            if (networkInterface.Name.Equals(adapterName, StringComparison.OrdinalIgnoreCase))
-            {
-                selectedInterface = networkInterface;
-                break;
-            }
+        var selectedInterface = NetworkInterface
+            .GetAllNetworkInterfaces()
+            .FirstOrDefault(ni =>
+                ni.Name.Equals(adapterName, StringComparison.OrdinalIgnoreCase));
 
-        if (selectedInterface == null) throw new ArgumentException("Adapter not found: " + adapterName);
+        if (selectedInterface == null)
+            throw new ArgumentException($"Adapter not found: {adapterName}", nameof(adapterName));
 
-        var interfaceStats1 = selectedInterface.GetIPv4Statistics();
-        var bytesReceived1 = interfaceStats1.BytesReceived;
+        var stats1 = selectedInterface.GetIPv4Statistics();
+        var bytes1 = stats1.BytesReceived;
 
-        // Wait for 1 second to measure the change
-        Thread.Sleep(1000);
+        Thread.Sleep(1_000);
 
-        var interfaceStats2 = selectedInterface.GetIPv4Statistics();
-        var bytesReceived2 = interfaceStats2.BytesReceived;
+        var stats2 = selectedInterface.GetIPv4Statistics();
+        var bytes2 = stats2.BytesReceived;
 
-        // Calculate difference and convert to kilobits per second
-        var bytesReceived = bytesReceived2 - bytesReceived1;
-        var downloadSpeedKbps = bytesReceived * 8f / 1000f; // Convert to Kbps
-
-        return downloadSpeedKbps;
+        var delta = bytes2 - bytes1;
+        return delta * 8f / 1_000f;
     }
 
-    internal static List<string> ListAvailableNetworkAdapters()
+    /// <summary>
+    ///     Lists only “real” network adapters that are currently Up (Ethernet or Wireless).
+    ///     Filters out loopbacks, tunnels, unknowns, virtual/hidden, etc.
+    /// </summary>
+    public static List<string> ListAvailableNetworkAdapters()
     {
-        var availableNetworkAdapters = new List<string>();
-        var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-        Console.WriteLine("Available Network Adapters:");
-        foreach (var networkInterface in networkInterfaces) availableNetworkAdapters.Add(networkInterface.Name);
+        var adapters = NetworkInterface
+            .GetAllNetworkInterfaces()
+            .Where(ni =>
+                    ni.OperationalStatus == OperationalStatus.Up &&
+                    (ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet ||
+                     ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211) &&
+                    !ni.Description.ToLowerInvariant().Contains("virtual") &&
+                    !ni.Name.ToLowerInvariant().Contains("pseudo") // e.g. Hyper‑V, VMware
+            )
+            .Select(ni => ni.Name)
+            .ToList();
 
-        return availableNetworkAdapters;
+        Console.WriteLine("Available Network Adapters (Up, Ethernet/Wireless):");
+        foreach (var name in adapters)
+            Console.WriteLine("  • " + name);
+
+        return adapters;
     }
 }
