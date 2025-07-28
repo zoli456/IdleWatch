@@ -14,7 +14,6 @@ namespace IdleWatch;
 
 public class TransparentOverlay : NativeWindow
 {
-    //private const uint LWA_ALPHA = 0x00000002;
     private readonly int screenHeight;
     private readonly int screenWidth;
     private IDWriteTextFormat boldTextFormat;
@@ -25,7 +24,6 @@ public class TransparentOverlay : NativeWindow
     private IDWriteTextFormat regularTextFormat;
     private ID2D1HwndRenderTarget renderTarget;
     private ID2D1SolidColorBrush textBrush;
-
     public TransparentOverlay()
     {
         screenWidth = Screen.PrimaryScreen.Bounds.Width;
@@ -34,7 +32,6 @@ public class TransparentOverlay : NativeWindow
         InitializeDirect2D();
         LoadOverlayImage();
     }
-
     private void InitializeOverlayWindow()
     {
         var cp = new CreateParams
@@ -47,16 +44,20 @@ public class TransparentOverlay : NativeWindow
             ExStyle = (int)(WindowStylesEx.WS_EX_LAYERED | WindowStylesEx.WS_EX_TRANSPARENT |
                             WindowStylesEx.WS_EX_TOPMOST | (WindowStylesEx)0x00000080)
         };
-
         CreateHandle(cp);
-        SetLayeredWindowAttributes(Handle, 0, 0, LayeredWindowAttributes.LWA_COLORKEY);
+        SetLayeredWindowAttributes(Handle, 0, 255, LayeredWindowAttributes.LWA_COLORKEY);
     }
 
     private void InitializeDirect2D()
     {
         var rtProps = new RenderTargetProperties
         {
-            PixelFormat = new Vortice.DCommon.PixelFormat(Format.B8G8R8A8_UNorm, AlphaMode.Ignore)
+            Type = RenderTargetType.Hardware,
+            PixelFormat = new Vortice.DCommon.PixelFormat(Format.B8G8R8A8_UNorm, AlphaMode.Premultiplied),
+            DpiX = 96f,
+            DpiY = 96f,
+            Usage = RenderTargetUsage.GdiCompatible,
+            MinLevel = FeatureLevel.Level_9
         };
         var hwndProps = new HwndRenderTargetProperties
         {
@@ -84,7 +85,6 @@ public class TransparentOverlay : NativeWindow
         using var decoder = GraphicsFactories.WicFactory.CreateDecoderFromStream(stream);
         using var frame = decoder.GetFrame(0);
         using var converter = GraphicsFactories.WicFactory.CreateFormatConverter();
-        // Use the corrected pixel format
         converter.Initialize(frame, PixelFormat.Format32bppPBGRA);
         overlayImage = renderTarget.CreateBitmapFromWicBitmap(converter);
     }
@@ -178,7 +178,7 @@ public class TransparentOverlay : NativeWindow
         if (!isVisible) return;
         isVisible = false;
         renderTarget.BeginDraw();
-        renderTarget.Clear(new Color4(0, 0, 0, 0));
+        renderTarget.Clear(null);
         renderTarget.EndDraw();
     }
 }
